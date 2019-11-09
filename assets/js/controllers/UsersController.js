@@ -1,8 +1,8 @@
 /*jslint browser: true*/
-/*global angular, AG */
+/*global angular, CC */
 (function () {
     'use strict';
-    AG.app.controller("UsersController", ["$scope", 'UserService', '$mdBottomSheet', '$mdSidenav',
+    CC.app.controller("UsersController", ["$scope", 'UserService', '$mdBottomSheet', '$mdSidenav',
         function ($scope, UserService, $mdBottomSheet, $mdSidenav) {
             $scope.selected = null;
             $scope.users = [];

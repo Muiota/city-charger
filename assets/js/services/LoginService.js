@@ -2,7 +2,7 @@
 /*global angular, CC */
 (function () {
         'use strict';
-        CC.app.service('UserService', ['$q', function ($q) {
+        CC.app.service('LoginService', ['$q', function ($q) {
             var users = [
                 {
                     name: 'Vitaly Pavlov',

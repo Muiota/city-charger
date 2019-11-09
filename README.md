@@ -5,8 +5,8 @@ City charger project for Baltic Sea Hack
 ### TODO
 
 - [x] Design prototype  [09.11.2019 11:00]
-- [ ] Landing product page  [-]
-- [ ] Simple authorization to index and api (signin/signup/logout)
+- [x] Landing product page  [09.11.2019 16:00]
+- [x] Simple authorization to index and api (signin/signup/logout) [09.11.2019 16:00]
 - [ ] Pages template
 - [ ] Localization
 - [ ] Main page with current status

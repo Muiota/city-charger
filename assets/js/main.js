@@ -1,10 +1,14 @@
 /*jslint browser: true*/
 /*global angular */
-var AG = (function () {
+var CC = (function () {
     "use strict";
 
     return {
-        app: angular.module("AG", ["ngMaterial", "ngMessages", "ngAnimate"])
+        ApiRoutes: {
+            signIn: "/api/v1/signIn",
+            signUp: "/api/v1/signUp",
+        },
+        app: angular.module("CC", ["ngMaterial", "ngMessages", "ngAnimate", "ngResource", "ngCookies"])
             .config(function ($mdIconProvider, $mdThemingProvider, $sceProvider) {
                 $sceProvider.enabled(false);
                 $mdIconProvider
