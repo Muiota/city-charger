@@ -28,12 +28,26 @@
             function DialogController($scope, $mdDialog) {
                 $scope.i8n = CC.i8n;
 
-                $scope.items = [{title: "AA battery", icon: "svg-battery"},
-                    {title: "AAA battery", icon: "svg-battery"},
-                    {title: "AA battery", icon: "svg-battery"}];
+                $scope.items = [{title: "AA battery 1.5V", ratio: 1.5, icon: "svg-battery", count: 0},
+                    {title: "6F22 battery 9V", ratio: 9, icon: "svg-battery", count: 0},
+                    {title: "23AA battery 12V", ratio: 12, icon: "svg-battery", count: 0}];
+
 
                 $scope.hide = function () {
                     $mdDialog.hide();
+                };
+                $scope.total = 0;
+                $scope.recalcTotal = function () {
+                    $scope.total = 0;
+                    for (var i in $scope.items) {
+                        if (!$scope.items.hasOwnProperty(i)) {
+                            continue;
+                        }
+                        let item = $scope.items[i];
+                        if (item.count > 0) {
+                            $scope.total = $scope.total + item.count * item.ratio;
+                        }
+                    }
                 };
 
                 $scope.cancel = function () {
@@ -43,6 +57,21 @@
                 $scope.answer = function (answer) {
                     $mdDialog.hide(answer);
                 };
+
+                $scope.decrementQnt = function (item) {
+                    if (item.count > 0) {
+                        item.count--;
+                        $scope.recalcTotal();
+                    }
+                };
+
+                $scope.incrementQnt = function (item) {
+                    if (item.count < 100) {
+                        item.count++;
+                        $scope.recalcTotal();
+                    }
+                };
+                $scope.recalcTotal();
             }
 
             $scope.showCreatePackageDialog = function (ev) {

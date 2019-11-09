@@ -12,29 +12,47 @@
 
         <md-dialog-content>
             <div class="md-dialog-content">
-                <h2>Please select the items</h2>
+                <h2>Please select the items ({{total}} Volts)</h2>
                 <div flex ng-cloak>
-                    <md-grid-list
-                            md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
-                            md-row-height-gt-md="1:1" md-row-height="4:3"
-                            md-gutter="8px" md-gutter-gt-sm="4px" >
 
-                        <md-grid-tile ng-repeat="tile in items"
-                                      md-rowspan="1}"
-                                      md-colspan="1"
-                                      md-colspan-sm="1"
-                                      md-colspan-xs="1">
-                            <md-icon md-svg-icon="{{tile.icon}}"></md-icon>
-                            <md-grid-tile-footer><h3>{{tile.title}}</h3></md-grid-tile-footer>
-                        </md-grid-tile>
-                    </md-grid-list>
+                    <md-card-actions layout="row" layout-align="row">
+                        <div flex="" ng-repeat="tile in items">
+                            <md-card md-theme-watch>
+
+                                <div ng-click="showCreatePackageDialog($event)"
+                                     class="center">
+                                    <div layout="row" layout-align="row">
+                                        <div flex="">
+                                            <md-icon md-svg-src="svg-battery" class="avatar"></md-icon>
+                                        </div>
+                                        <div flex=""><h1>{{tile.count}}</h1></div>
+                                    </div>
+                                    <div layout="column" layout-padding layout-align="center end">{{i8n(tile.title) }}<br/></div>
+                                    <md-card-actions layout="row" layout-align="column center">
+                                        <div flex="">
+                                            <md-button ng-click="incrementQnt(tile)"
+                                                       class="center md-raised md-warn">
+                                                +
+                                            </md-button>
+                                        </div>
+                                        <div flex="">
+                                            <md-button ng-click="decrementQnt(tile)" ng-disabled="tile.count==0"
+                                                       class="center  md-raised md-primary">
+                                                -
+                                            </md-button>
+                                        </div>
+                                    </md-card-actions>
+                                </div>
+                            </md-card>
+                        </div>
+                    </md-card-actions>
                 </div>
             </div>
         </md-dialog-content>
 
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-click="answer(order)" class="md-ink-ripple md-raised md-primary">
+            <md-button ng-disabled="total<=0" ng-click="answer(order)" class="md-ink-ripple md-raised md-primary">
                 Confirm
             </md-button>
             <md-button ng-click="answer(false)">
