@@ -1,0 +1,30 @@
+{
+  "name": "city-charger",
+  "description": "City charger project for Baltic Sea Hack at https://github.com/Muiota/city-charger/",
+  "version": "0.0.1",
+  "private": false,
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  },
+  "dependencies": {
+    "config-multipaas": "^0.2.2",
+    "router": "^1.1.4",
+    "send": "^0.13.2",
+    "serve-static": "^1.10.2",
+    "finalhandler": "^0.4.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "tap": "^5.7.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Muiota/city-charger.git"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "MIT",
+  "main": "server.js"
+}
