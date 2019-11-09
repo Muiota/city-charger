@@ -1,45 +1,57 @@
-var cc       = require('config-multipaas'),
-    finalhandler= require('finalhandler'),
-    http     = require("http"),
-    Router       = require('router'),
+/*jslint browser: true*/
+/*global require */
+
+let cc = require('config-multipaas'),
+    finalhandler = require('finalhandler'),
+    http = require("http"),
+    Router = require('router'),
     fs = require('fs'),
-    serveStatic       = require("serve-static");
+    serveStatic = require("serve-static"),
+    application = require("./serverlogic/city-charger-app.js");
 
-var config   = cc();
-var app      = Router();
+let config = cc();
+let app = Router();
 
-// Serve up public/ftp folder 
-app.use(serveStatic('assets'))
+// Serve up static files
+app.use(serveStatic('assets'));
 
-// Routes
+console.log("Routes Initialization");
+const routes = Object.values(application.dictionary.Routes);
+console.log(routes);
+for (let i in routes) {
+    if (!routes.hasOwnProperty(i)) {
+        continue;
+    }
+    let route = routes[i];
+    app.get(route, function (req, res) {
+        //console.log(req);
+        application.handleRequest(req, res);
+       // console.log(res);
+    })
+    console.log("Route " + route + " complete");
+}
+
+// API routes
 app.get("/status", function (req, res) {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json; charset=utf-8');
-  res.end("{status: 'ok'}\n");
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.end("{status: 'ok'}\n");
 })
 
-//landing
-app.get("/", function (req, res) {
-  var index = fs.readFileSync(__dirname + '/index.html');
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.end(index.toString())
-});
 
-//lk
-app.get("/lk", function (req, res) {
-  var index = fs.readFileSync(__dirname + '/client/index.html');
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.end(index.toString())
+app.get("/staftus", function (req, res) {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.end("{status: 'ok'}\n");
 })
 
 // Create server 
-var server = http.createServer(function(req, res){
-  var done = finalhandler(req, res);
+let server = http.createServer(function (req, res) {
+  let done = finalhandler(req, res);
   app(req, res, done);
-})
+});
 
 server.listen(config.get('PORT'), config.get('IP'), function () {
-  console.log( "Listening on " + config.get('IP') + ", port " + config.get('PORT') )
+    console.log("Listening on " + config.get('IP') + ", port " + config.get('PORT'));
+    console.log("Application version " + application.version());
 });

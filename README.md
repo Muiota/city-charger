@@ -8,6 +8,7 @@ City charger project for Baltic Sea Hack
 - [ ] Landing product page  [-]
 - [ ] Simple authorization to index and api (signin/signup/logout)
 - [ ] Pages template
+- [ ] Localization
 - [ ] Main page with current status
 - [ ] Status rest api
 - [ ] Send package page
