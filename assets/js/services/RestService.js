@@ -22,8 +22,8 @@
 
                     if (a.redirect) {
                         setTimeout(function () {
-                            window.location.href = a.redirect;
-                        }, 2000);
+                            window.location.href = a.redirect + "?nocache=" + (new Date()).getTime();
+                        }, 1000);
                     }
 
                     if (isError || a.error) {
