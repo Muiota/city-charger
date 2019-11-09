@@ -56,7 +56,7 @@
                         let session = sessions[authObj.userid];
                         if (session && authObj.token === session.token) {
                             console.log("logged " + req.originalUrl);
-                           isLogged = true;
+                            isLogged = true;
                         }
                     }
                 }
@@ -144,28 +144,38 @@
 
         exports.handleRequest = function (req, res) {
 
-            //Unauthorized requests
-            switch (req.originalUrl) {
-                case dictionary.StaticRoutes.landing:
-                    return handleStatic(res, "index.html");
-                case dictionary.StaticRoutes.signIn:
-                    return handleStatic(res, "client/signIn/index.html");
-                case dictionary.StaticRoutes.signUp:
-                    return handleStatic(res, "client/signUp/index.html");
-                case dictionary.ApiRoutes.signIn:
-                case dictionary.ApiRoutes.signUp:
-                    return handleApi(req, res);
-            }
+            try {
 
-            if (oAuthGuard(req, res)) {
+
+                //Unauthorized requests
                 switch (req.originalUrl) {
-                    case dictionary.StaticRoutes.account:
-                        handleStatic(res, "client/index.html");
-                        break;
-                    default:
-                        handleApi(req, res);
-                        break;
+                    case dictionary.StaticRoutes.landing:
+                        return handleStatic(res, "index.html");
+                    case dictionary.StaticRoutes.signIn:
+                        return handleStatic(res, "client/signIn/index.html");
+                    case dictionary.StaticRoutes.signUp:
+                        return handleStatic(res, "client/signUp/index.html");
+                    case dictionary.ApiRoutes.signIn:
+                    case dictionary.ApiRoutes.signUp:
+                        return handleApi(req, res);
                 }
+
+                if (oAuthGuard(req, res)) {
+                    switch (req.originalUrl) {
+                        case dictionary.StaticRoutes.account:
+                            handleStatic(res, "client/index.html");
+                            break;
+                        default:
+                            handleApi(req, res);
+                            break;
+                    }
+                }
+
+            } catch (e) {
+                console.error(req.originalUrl, e);
+                res.statusCode = 501;
+                res.setHeader('Content-Type', 'application/json; charset=utf-8');
+                res.send({error: "unhandledError"});
             }
         };
 
