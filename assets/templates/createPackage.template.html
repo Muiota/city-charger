@@ -1,0 +1,45 @@
+<md-dialog aria-label="{{i8n('create_package')}} (i8n('battery'))">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{i8n('create_package')}} ({{i8n('battery')}})</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <h2>Please select the items</h2>
+                <div flex ng-cloak>
+                    <md-grid-list
+                            md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
+                            md-row-height-gt-md="1:1" md-row-height="4:3"
+                            md-gutter="8px" md-gutter-gt-sm="4px" >
+
+                        <md-grid-tile ng-repeat="tile in items"
+                                      md-rowspan="1}"
+                                      md-colspan="1"
+                                      md-colspan-sm="1"
+                                      md-colspan-xs="1">
+                            <md-icon md-svg-icon="{{tile.icon}}"></md-icon>
+                            <md-grid-tile-footer><h3>{{tile.title}}</h3></md-grid-tile-footer>
+                        </md-grid-tile>
+                    </md-grid-list>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="answer(order)" class="md-ink-ripple md-raised md-primary">
+                Confirm
+            </md-button>
+            <md-button ng-click="answer(false)">
+                Cancel
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
