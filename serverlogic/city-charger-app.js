@@ -11,8 +11,8 @@
             StaticRoutes: {
                 landing: "/",
                 account: "/account",
-                signIn: "/account/signIn",
-                signUp: "/account/signUp"
+                signIn: "/account/signin",
+                signUp: "/account/signup"
             },
             ApiRoutes: {
                 signIn: "/api/v1/signIn",
