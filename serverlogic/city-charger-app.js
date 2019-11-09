@@ -42,29 +42,27 @@
 
         function oAuthGuard(req, res) {
             let cookie = req.headers.cookie;
+            var isLogged = false;
             if (!cookie) {
                 console.log("unlogged " + req.originalUrl + " no cookie");
-                return false;
-            }
-
-            var isLogged = false;
-            cookie.split(';').forEach(function (cookie) {
-                let parts = cookie.trim().split('=');
-                let key = parts.shift().trim();
-                let value = decodeURI(parts.join('=').trim());
-                if (value && key === dictionary.Cookies.cityChargerAuth) {
-                    let auth = Buffer.from(value.split("%")[0], 'base64').toString();
-                    let authObj = JSON.parse(auth); //todo guiard
-                    if (authObj.userid) {
-                        let session = data.sessions[authObj.userid];
-                        if (session && authObj.token === session.token) {
-                            console.log("logged " + req.originalUrl);
-                            isLogged = true;
+            } else {
+                cookie.split(';').forEach(function (cookie) {
+                    let parts = cookie.trim().split('=');
+                    let key = parts.shift().trim();
+                    let value = decodeURI(parts.join('=').trim());
+                    if (value && key === dictionary.Cookies.cityChargerAuth) {
+                        let auth = Buffer.from(value.split("%")[0], 'base64').toString();
+                        let authObj = JSON.parse(auth); //todo guiard
+                        if (authObj.userid) {
+                            let session = data.sessions[authObj.userid];
+                            if (session && authObj.token === session.token) {
+                                console.log("logged " + req.originalUrl);
+                                isLogged = true;
+                            }
                         }
                     }
-                }
-            });
-
+                });
+            }
             if (isLogged) {
                 return true;
             }
