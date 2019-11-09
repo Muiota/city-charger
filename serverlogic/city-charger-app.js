@@ -152,9 +152,9 @@
                     case dictionary.StaticRoutes.landing:
                         return handleStatic(res, "index.html");
                     case dictionary.StaticRoutes.signIn:
-                        return handleStatic(res, "client/signIn/index.html");
+                        return handleStatic(res, "client/signin/index.html");
                     case dictionary.StaticRoutes.signUp:
-                        return handleStatic(res, "client/signUp/index.html");
+                        return handleStatic(res, "client/signup/index.html");
                     case dictionary.ApiRoutes.signIn:
                     case dictionary.ApiRoutes.signUp:
                         return handleApi(req, res);
