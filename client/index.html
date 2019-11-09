@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <title>Baltic Sea Hack</title>
+    <style>
+        .ng-cloak {
+            display: none !important;
+        }
+    </style>
+    <link rel="stylesheet"
+          href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.20/angular-material.min.css">
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<div ng-app="AG" ng-cloak layout="column" ng-controller="UsersController">
+    <md-toolbar layout="row">
+        <md-button class="menu" hide-gt-sm ng-click="toggleList()" aria-label="Show User List">
+            <md-icon md-svg-icon="menu"></md-icon>
+        </md-button>
+        <h3>Baltic Sea Hack</h3>
+    </md-toolbar>
+    <div layout="row" flex>
+        <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2">
+            <md-list ng-click="toggleList()">
+                <md-list-item ng-repeat="user in users">
+                    <md-button ng-click="selectUser(user)">
+                        <md-icon md-svg-src="{{ user.avatar }}" class="avatar"></md-icon>
+                        {{ user.name }}
+                    </md-button>
+                </md-list-item>
+            </md-list>
+        </md-sidenav>
+        <md-content flex id="content">
+            <md-icon md-svg-icon="{{ selected.avatar }}" class="avatar"></md-icon>
+            <h2>{{ selected.name }}</h2>
+            <p>{{ selected.content }}</p>
+
+            <md-button class="share" md-no-ink aria-label="Share with {{ selected.name }}"
+                       ng-click="share(selected)">
+                <md-icon md-svg-icon="share"></md-icon>
+            </md-button>
+        </md-content>
+    </div>
+</div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-messages.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.20/angular-material.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/services/UsersService.js"></script>
+<script src="/js/controllers/UsersController.js"></script>
+</html>

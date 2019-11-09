@@ -18,8 +18,17 @@ app.get("/status", function (req, res) {
   res.end("{status: 'ok'}\n");
 })
 
+//landing
 app.get("/", function (req, res) {
   var index = fs.readFileSync(__dirname + '/index.html');
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.end(index.toString())
+});
+
+//lk
+app.get("/lk", function (req, res) {
+  var index = fs.readFileSync(__dirname + '/client/index.html');
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.end(index.toString())
