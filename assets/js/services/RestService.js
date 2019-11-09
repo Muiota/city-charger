@@ -23,7 +23,7 @@
                     if (a.redirect) {
                         setTimeout(function () {
                             window.location.href = a.redirect + "?nocache=" + (new Date()).getTime();
-                        }, 1000);
+                        }, 100);
                     }
 
                     if (isError || a.error) {
@@ -31,7 +31,7 @@
                         if (a.error) {
                             $mdToast.show({
                                 template: '<md-toast class="md-toast ' + "error" + '">' + CC.i8n(a.error) + '</md-toast>',
-                                hideDelay: 10000,
+                                hideDelay: 12000,
                                 position: 'top right'
                             });
                             /*  $mdToast.simple()

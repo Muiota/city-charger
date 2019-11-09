@@ -150,7 +150,8 @@
         function handleApi(req, res) {
             let requestBody = req.body;
             let responseBody;
-            switch (req.originalUrl) {
+            let originalUrl = req.originalUrl.split("?")[0];
+            switch (originalUrl) {
                 case dictionary.ApiRoutes.signIn:
                     responseBody = login(requestBody, res);
                     break;
@@ -175,11 +176,12 @@
 
         exports.handleRequest = function (req, res) {
 
+            let originalUrl = req.originalUrl.split("?")[0];
             try {
 
 
                 //Unauthorized requests
-                switch (req.originalUrl) {
+                switch (originalUrl) {
                     case dictionary.StaticRoutes.landing:
                         return handleStatic(res, "index.html");
                     case dictionary.StaticRoutes.signIn:
@@ -193,7 +195,7 @@
                 }
 
                 if (oAuthGuard(req, res)) {
-                    switch (req.originalUrl) {
+                    switch (originalUrl) {
                         case dictionary.StaticRoutes.account:
                             handleStatic(res, "client/index.html");
                             break;
@@ -204,7 +206,7 @@
                 }
 
             } catch (e) {
-                console.error(req.originalUrl, e);
+                console.error(originalUrl, e);
                 res.statusCode = 501;
                 res.setHeader('Content-Type', 'application/json; charset=utf-8');
                 res.send({error: "unhandledError"});
