@@ -1,6 +1,8 @@
 # city-charger
 City charger project for Baltic Sea Hack
 
+#### demo
+http://demo-balticsea.apps.us-east-1.starter.openshift-online.com/
 
 ### TODO
 
@@ -11,7 +13,7 @@ City charger project for Baltic Sea Hack
 - [x] Localization [10.11.2019 0:00]
 - [ ] Main page with current status
 - [ ] Status rest api
-- [ ] Send package page
+- [x] Send package page [10.11.2019 1:30]
 - [ ] Send package rest api
 - [ ] Package card
 - [ ] Courier page
