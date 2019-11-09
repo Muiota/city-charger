@@ -17,6 +17,11 @@
             ApiRoutes: {
                 signIn: "/api/v1/signIn",
                 signUp: "/api/v1/signUp",
+                logout: "/api/v1/logout",
+                createPackage: "/api/v1/createPackage",
+                listOfPackages: "/api/v1/listOfPackages",
+                getAllPackages: "/api/v1/getAllPackages",
+                assignPackage: "/api/v1/assignPackage",
             },
             Cookies: {
                 cityChargerAuth: "CITY_CHARGER_AUTH"
@@ -41,19 +46,17 @@
                 console.log("unlogged " + req.originalUrl + " no cookie");
                 return false;
             }
-            let sessions = data.getSessions();
+
             var isLogged = false;
             cookie.split(';').forEach(function (cookie) {
                 let parts = cookie.trim().split('=');
                 let key = parts.shift().trim();
                 let value = decodeURI(parts.join('=').trim());
                 if (value && key === dictionary.Cookies.cityChargerAuth) {
-                    console.log(value);
                     let auth = Buffer.from(value.split("%")[0], 'base64').toString();
-                    console.log(auth);
                     let authObj = JSON.parse(auth); //todo guiard
                     if (authObj.userid) {
-                        let session = sessions[authObj.userid];
+                        let session = data.sessions[authObj.userid];
                         if (session && authObj.token === session.token) {
                             console.log("logged " + req.originalUrl);
                             isLogged = true;
@@ -65,7 +68,7 @@
             if (isLogged) {
                 return true;
             }
-            console.log("unlogged " + req.originalUrl + " " + cookie + " " + JSON.stringify(sessions));
+            console.log("unlogged " + req.originalUrl + " " + cookie + " " + JSON.stringify(data.sessions));
             res.writeHead(301, {Location: dictionary.StaticRoutes.signIn});
             res.end();
             return false;
@@ -88,26 +91,23 @@
         function login(request, res) {
             var username = request.username;
             var password = request.password;
-            let users = data.getUsers();
-            console.log(JSON.stringify(users) + " username=" + username + " password=" + password);
-            for (var i in users) {
-                if (!users.hasOwnProperty(i)) {
+            console.log(JSON.stringify(data.users) + " username=" + username + " password=" + password);
+            for (var i in data.users) {
+                if (!data.users.hasOwnProperty(i)) {
                     continue;
                 }
-                var user = users[i];
+                var user = data.users[i];
                 if (user.username === username &&
                     user.password === password) {
                     var token = uuidv1();
-                    let value = {userid: user.id, token: token};
+                    let value = {userid: user.id, token: token, username: user.username};
                     let auth = Buffer.from(JSON.stringify(value)).toString('base64');
                     console.log("Set cookie " + auth);
                     res.cookie(dictionary.Cookies.cityChargerAuth, auth, {maxAge: 900000});
-                    let sessions = data.getSessions();
-                    sessions[user.id] = {
+                    data.sessions[user.id] = {
                         expiry: Date.now() + 86400 * 1000,
                         token: token
                     };
-                    data.setSessions(sessions);
                     return {
                         isSuccess: true,
                         cookie: auth,
@@ -119,6 +119,33 @@
             return {error: "userNotFound"};
         }
 
+        function signUp(request, res) {
+            var username = request.username;
+            var password = request.password;
+            console.log(JSON.stringify(data.users) + " username=" + username + " password=" + password);
+            for (var i in data.users) {
+                if (!data.users.hasOwnProperty(i)) {
+                    continue;
+                }
+                var user = data.users[i];
+                if (user.username === username) {
+                    return {error: "userAlreadyExist"};
+                }
+            }
+            data.createUser(request.username, request.password);
+            console.log("User " + request.username + " created");
+            return login(request, res);
+        }
+
+        function logout(request, res) {
+            console.log("Logout " + request.userid);
+            data.sessions[request.userid] = {};
+            res.cookie(dictionary.Cookies.cityChargerAuth, "", {maxAge: 900000});
+            return {
+                isSuccess: true
+            };
+        }
+
 
         function handleApi(req, res) {
             let requestBody = req.body;
@@ -128,8 +155,12 @@
                     responseBody = login(requestBody, res);
                     break;
                 case dictionary.ApiRoutes.signUp:
-                    // handleApi(req, res);
+                    responseBody = signUp(requestBody, res);
                     break;
+                case dictionary.ApiRoutes.logout:
+                    responseBody = logout(requestBody, res);
+                    break;
+
             }
             sendResponse(res, requestBody, responseBody);
         }
@@ -157,6 +188,7 @@
                         return handleStatic(res, "client/signup/index.html");
                     case dictionary.ApiRoutes.signIn:
                     case dictionary.ApiRoutes.signUp:
+                    case dictionary.ApiRoutes.logout:
                         return handleApi(req, res);
                 }
 

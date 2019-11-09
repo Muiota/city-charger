@@ -16,14 +16,28 @@
 </head>
 <body>
 <div ng-app="CC" ng-cloak layout="column" ng-controller="IndexController">
-    <md-toolbar layout="row">
-        <md-button class="menu" hide-gt-sm ng-click="toggleList()" aria-label="Show User List">
-            <md-icon md-svg-icon="menu"></md-icon>
-        </md-button>
-        <h3>Baltic Sea Hack</h3>
+
+    <md-toolbar class="md-hue-2 _md _md-toolbar-transitions">
+        <div class="md-toolbar-tools">
+            <md-button class="menu" hide-gt-sm ng-click="toggleList()" aria-label="Show User List">
+                <md-icon md-svg-icon="menu"></md-icon>
+            </md-button>
+            <div flex="" md-truncate="" class="md-truncate flex"></div>
+            <h2>{{usersService.getUserInfo().username}}
+                {{i8n(currentTab) }}</h2>
+            <md-button class="md-highlight" ng-click="logout()">
+                {{i8n('logout')}}
+            </md-button>
+            <md-button>
+                <md-icon md-svg-icon="settings"></md-icon>
+            </md-button>
+        </div>
     </md-toolbar>
     <div layout="row" flex>
-        <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2">
+
+        <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left"
+                    md-disable-backdrop=""
+                    class="md-sidenav-left md-whiteframe-z2">
             <md-list ng-click="toggleList()">
                 <md-list-item ng-repeat="user in users">
                     <md-button ng-click="selectUser(user)">
@@ -31,19 +45,72 @@
                         {{ user.name }}
                     </md-button>
                 </md-list-item>
+                <md-list-item>
+                    <md-button ng-click="changeTab(tabs.citizen)"
+                               ng-class="{'md-raised md-primary':tabs.citizen=== currentTab }">
+                        <md-icon md-svg-src="svg-2" class="avatar"></md-icon>
+                        {{i8n(tabs.citizen) }}
+                    </md-button>
+                </md-list-item>
+                <md-list-item>
+                    <md-button ng-click="changeTab(tabs.courier)"
+                               ng-class="{'md-raised md-primary':tabs.courier=== currentTab }">
+                        <md-icon md-svg-src="svg-1" class="avatar"></md-icon>
+                        {{i8n(tabs.courier) }}
+                    </md-button>
+                </md-list-item>
+                <md-list-item>
+                    <md-button ng-click="changeTab(tabs.recycler)"
+                               ng-class="{'md-raised md-primary':tabs.recycler=== currentTab }">
+                        <md-icon md-svg-src="svg-3" class="avatar"></md-icon>
+                        {{i8n(tabs.recycler) }}
+                    </md-button>
+                </md-list-item>
             </md-list>
         </md-sidenav>
-        <md-content flex id="content">
-            <md-icon md-svg-icon="{{ selected.avatar }}" class="avatar"></md-icon>
-            <h2>{{ selected.name }}</h2>
-            <p>{{ selected.content }}</p>
-
-            <md-button class="share" md-no-ink aria-label="Share with {{ selected.name }}"
-                       ng-click="share(selected)">
-                <md-icon md-svg-icon="share"></md-icon>
-            </md-button>
-        </md-content>
+        <md-content flex id="content" ng-show="tabs.citizen === currentTab">
+            <div layout="row">
+                <div flex="">
+                    <md-card md-theme-watch>
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">{{i8n('create_package')}}</span>
+                            </md-card-title-text>
+                        </md-card-title>
+                        <md-card-actions layout="row" layout-align="column center">
+                            <div flex="">
+                                <md-button ng-click="changeTab(tabs.recycler)"
+                                           class="center">
+                                    <md-icon md-svg-src="svg-battery" class="avatar avatar-big"></md-icon>
+                                    <br/>
+                                    {{i8n('battery') }}
+                                </md-button>
+                            </div>
+                            <div flex="">
+                                <md-button ng-click="changeTab(tabs.recycler)"
+                                           class="center">
+                                    <md-icon md-svg-src="svg-plastic" class="avatar avatar-big"></md-icon>
+                                    <br/>
+                                    {{i8n('plastic') }}
+                                </md-button>
+                            </div>
+                            <div flex="">
+                                <md-button ng-click="changeTab(tabs.recycler)"
+                                           class="center">
+                                    <md-icon md-svg-src="svg-light" class="avatar avatar-big"></md-icon>
+                                    <br/>
+                                    {{i8n('light') }}
+                                </md-button>
+                            </div>
+                        </md-card-actions>
+                    </md-card>
+                </div>
+            </div>
+            <div layout="row" layout-xs="column">
+        </div>
     </div>
+    </md-content>
+</div>
 </div>
 </body>
 
@@ -56,6 +123,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.20/angular-material.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/services/UsersService.js"></script>
+<script src="/js/services/RestService.js"></script>
 <script src="/js/controllers/IndexController.js"></script>
 <script src="/js/controllers/UsersController.js"></script>
 </html>

@@ -7,6 +7,66 @@ var CC = (function () {
         ApiRoutes: {
             signIn: "/api/v1/signIn",
             signUp: "/api/v1/signUp",
+            logout: "/api/v1/logout",
+            createPackage: "/api/v1/createPackage",
+            listOfPackages: "/api/v1/listOfPackages",
+            getAllPackages: "/api/v1/getAllPackages",
+            assignPackage: "/api/v1/assignPackage",
+        },
+        tabs: {
+            citizen: "citizen",
+            courier: "courier",
+            recycler: "recycler",
+        },
+        language: {
+            current: "en",
+            data: {
+                "citizen": {
+                    en: "Citizen",
+                    ru: "горожанин",
+                },
+                "courier": {
+                    en: "Courier",
+                    ru: "Курьер",
+                },
+                "recycler": {
+                    en: "Recycler",
+                    ru: "Переработчик",
+                },
+                "battery": {
+                    en: "Battery",
+                    ru: "Батарейка",
+                },
+                "plastic": {
+                    en: "Plastic",
+                    ru: "Пластик",
+                },
+                "light": {
+                    en: "Lamps",
+                    ru: "Лампы",
+                },
+                "create_package": {
+                    en: "Create waste package",
+                    ru: "Создать посылку",
+                },
+                "userNotFound": {
+                    en: "User not found",
+                    ru: "Пользователь не найден",
+                },
+                "userAlreadyExist": {
+                    en: "User already exist",
+                    ru: "Пользователь уже сучществует",
+                },
+                "logout": {
+                    en: "Logout",
+                    ru: "Выйти",
+                }
+            }
+        },
+        i8n: function (msg) {
+            var lang = CC.language.current || "en";
+            let value = CC.language.data[msg];
+            return value ? (value[lang] || msg) : msg;
         },
         app: angular.module("CC", ["ngMaterial", "ngMessages", "ngAnimate", "ngResource", "ngCookies"])
             .config(function ($mdIconProvider, $mdThemingProvider, $sceProvider) {
@@ -14,8 +74,10 @@ var CC = (function () {
                 $mdIconProvider
                     .defaultIconSet('/images/avatars.svg', 128)
                     .icon('menu', '/images/menu.svg', 24)
+                    .icon('settings', '/images/settings.svg', 24)
                     .icon("share", "/images/share.svg", 24)
                     .icon("google_plus", "/images/google_plus.svg", 512)
+                    .icon("battery", "/images/battery.svg", 160)
                     .icon("hangouts", "/images/hangouts.svg", 512)
                     .icon("twitter", +"/images/twitter.svg", 512)
                     .icon("phone", "/images/phone.svg", 512);

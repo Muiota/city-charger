@@ -6,9 +6,9 @@ City charger project for Baltic Sea Hack
 
 - [x] Design prototype  [09.11.2019 11:00]
 - [x] Landing product page  [09.11.2019 16:00]
-- [x] Simple authorization to index and api (signin/signup/logout) [09.11.2019 16:00]
-- [ ] Pages template
-- [ ] Localization
+- [x] Simple authorization to index and api (signin/signup/logout) [09.11.2019 19:00]
+- [x] Pages template [09.11.2019 21:00]
+- [x] Localization [10.11.2019 0:00]
 - [ ] Main page with current status
 - [ ] Status rest api
 - [ ] Send package page
@@ -23,7 +23,7 @@ City charger project for Baltic Sea Hack
 - [ ] Packages
 - [ ] Recycler page 
 - [ ] Handshake algorythm
-- [ ] Toasts
+- [x] Toasts
 - [ ] Settings page
 
 

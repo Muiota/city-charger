@@ -2,12 +2,12 @@
 /*global angular, CC */
 (function () {
     'use strict';
-    CC.app.controller("UsersController", ["$scope", 'UserService', '$mdBottomSheet', '$mdSidenav',
-        function ($scope, UserService, $mdBottomSheet, $mdSidenav) {
+    CC.app.controller("UsersController", ["$scope", 'UsersService', '$mdBottomSheet', '$mdSidenav',
+        function ($scope, usersService, $mdBottomSheet, $mdSidenav) {
             $scope.selected = null;
             $scope.users = [];
             $scope.activate = function () {
-                UserService.loadAllUsers()
+                usersService.loadAllUsers()
                     .then(function (users) {
                         $scope.users = users;
                         $scope.selected = users[4];

@@ -2,7 +2,7 @@
 /*global angular, CC */
 (function () {
         'use strict';
-        CC.app.service('RestService', ["$resource", "$cookies", function ($resource, $cookies) {
+        CC.app.service('RestService', ["$resource", "$cookies", "$mdToast", "UsersService", function ($resource, $cookies, $mdToast, usersService) {
 
             function transformResponse(data) {
                 var response;
@@ -20,19 +20,32 @@
             function getWrappedCallback(url, callback, isError) {
                 return function (a, b, c, d) {
 
-
-                    if (a.cookie) {
-                        $cookies.put("CITY_CHARGER_AUTH", a.cookie, []);
-                    }
-
                     if (a.redirect) {
                         setTimeout(function () {
                             window.location.href = a.redirect;
-                        }, 1000);
+                        }, 2000);
                     }
 
                     if (isError || a.error) {
-                        console.error("error response statusCode=" + c + " url=" + url + " response: " + a + "headers: " + headers,
+
+                        if (a.error) {
+                            $mdToast.show({
+                                template: '<md-toast class="md-toast ' + "error" + '">' + CC.i8n(a.error) + '</md-toast>',
+                                hideDelay: 10000,
+                                position: 'top right'
+                            });
+                            /*  $mdToast.simple()
+                                  .textContent(CC.i8n(a.error))
+                                  .position("top right")
+                                  .hideDelay(10000))
+                              .then(function () {
+
+                              }).catch(function () {
+
+                          })*/
+                            ;
+                        }
+                        console.error("error response statusCode=" + c + " url=" + url + " response: " + a,
                             true);
                     } else {
                         console.info("success url=" + url + " response:", a);
@@ -55,6 +68,8 @@
                         responseType: "json"
                     }
                 });
+                req = req || {};
+                req.userid = usersService.getUserInfo().userid;
                 resource.execute(req,
                     getWrappedCallback(url, successCallback),
                     getWrappedCallback(url, errorCallback, true));
