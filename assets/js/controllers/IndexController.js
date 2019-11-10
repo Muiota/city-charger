@@ -73,7 +73,7 @@
                 };
 
                 $scope.requestPackage = function (answer) {
-                    let request = {items: []};
+                    let request = {items: [], type: CC.WasteTypeEnum.battery, total: $scope.total};
                     for (let i in $scope.items) {
                         if (!$scope.items.hasOwnProperty(i)) {
                             continue;
@@ -116,9 +116,7 @@
                     fullscreen: false // Only for -xs, -sm breakpoints.
                 })
                     .then(function (request) {
-                        restService.post(CC.ApiRoutes.createPackage, request, function (data) {
-                            packagesService.reloadUserPackages();
-                        })
+                        packagesService.createPackage(request);
                     }, function () {
                         $scope.status = 'You cancelled the dialog.';
                     });

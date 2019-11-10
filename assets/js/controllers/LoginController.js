@@ -13,8 +13,8 @@
                 restService.post(CC.ApiRoutes.signIn, $scope.loginModel, function (data) {
                     console.log(data);
 
-                })
-            }
+                });
+            };
 
             $scope.signUp= function () {
                 restService.post(CC.ApiRoutes.signUp, $scope.loginModel, function (data) {

@@ -16,17 +16,21 @@
     exports.packages = [];
 
     exports.createUser = function (username, password) {
-        exports.users.push({
+        let user = {
             id: exports.generatePK(),
             username: username,
             password: password,
-        });
+        };
+        exports.users.push(user);
+        return user;
     };
 
-    exports.createPackage = function (userid, items) {
+    exports.createPackage = function (userid, items, type, total) {
         let pack = {
             id: exports.generatePK(),
             userid: userid,
+            type: type,
+            total: total,
             items: items,
             createDate: Date.now(),
             status: dictionary.PackageItemStatus.wait
@@ -35,6 +39,10 @@
         console.log("Package " + JSON.stringify(pack) + " created");
     };
 
-    exports.createUser("Muiota", "test");
-
+    let user = exports.createUser("Muiota", "test");
+    exports.createPackage(user.id, [{
+        type: dictionary.PackageItemTypes.B6F22,
+        count: 2,
+        ratio: 220,
+    }], dictionary.WasteTypeEnum.glass, 440);
 }());

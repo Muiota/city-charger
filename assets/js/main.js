@@ -14,9 +14,15 @@ var CC = (function () {
             assignPackage: "/api/v1/assignPackage",
         },
         PackageItemTypes: {
-            "BAA":"AA",
-            "B6F22":"6F22",
-            "B23AA":"23AA",
+            "BAA": "AA",
+            "B6F22": "6F22",
+            "B23AA": "23AA",
+        },
+        WasteTypeEnum: {
+            battery: "battery",
+            paper: "paper",
+            plastic: "plastic",
+            glass: "glass"
         },
         tabs: {
             citizen: "citizen",

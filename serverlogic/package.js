@@ -19,7 +19,7 @@
             }
         }
 
-        data.createPackage(request.userid, request.items);
+        data.createPackage(request.userid, request.items, request.type, request.total);
         return {
             isSuccess: true,
             message: "packageCreatedSuccess"
