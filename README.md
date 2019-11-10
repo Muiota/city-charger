@@ -12,21 +12,21 @@ http://demo-balticsea.apps.us-east-1.starter.openshift-online.com/
 - [x] Pages template [09.11.2019 21:00]
 - [x] Localization [10.11.2019 0:00]
 - [ ] Main page with current status
-- [ ] Status rest api
+- [x] Status rest api
 - [x] Send package page [10.11.2019 1:30]
 - [x] Send package rest api [10.11.2019 3:00]
 - [ ] Package card
-- [ ] Courier page
-- [ ] Simple list of packages for courier
+- [x] Courier page   [10.11.2019 13:00]
+- [x] Simple list of packages for courier  [10.11.2019 14:00]
 - [x] Map route for courier  [10.11.2019 10:00]
-- [ ] Get package rest api
+- [x] Get package rest api
 - [ ] Balances
 - [ ] Users
 - [ ] Packages
 - [ ] Recycler page 
-- [ ] Handshake algorythm
+- [ ] Handshake algorithm (QR code/ sms/push)
 - [x] Toasts
-- [ ] Settings page
+- [ ] Settings page / adresses
 
 
 

@@ -11,7 +11,7 @@ var CC = (function () {
             createPackage: "/api/v1/createPackage",
             listOfPackages: "/api/v1/listOfPackages",
             getWaitingPackages: "/api/v1/getWaitingPackages",
-            assignPackage: "/api/v1/assignPackage",
+            takePackage: "/api/v1/takePackage",
         },
         PackageItemTypes: {
             "BAA": "AA",

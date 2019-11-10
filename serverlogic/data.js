@@ -6,8 +6,9 @@
     'use strict';
     const dict = require("./dictionary.js");
     const dictionary = dict.dictionary;
+    const uuidv1 = require('uuid/v1');
     exports.generatePK = function () {
-        return Date.now();
+        return uuidv1();
     };
 
 

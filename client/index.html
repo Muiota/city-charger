@@ -121,7 +121,7 @@
                             <h4>{{getVolume(item)}}</h4>
                             <p>{{getDescription(item)}} {{item.createDate| date:"h:mm dd.MM.y"}}</p>
                         </div>
-                        <md-button ng-show="item.status === 'wait'" flex="" ng-click="incrementQnt(tile)"
+                        <md-button ng-show="item.status === 'wait'" flex=""
                                    class="center md-raised md-primary">
                             Edit
                         </md-button>
@@ -180,7 +180,7 @@
                             <h4>{{getVolume(item)}}</h4>
                             <p>{{getDescription(item)}} {{item.createDate| date:"h:mm dd.MM.y"}} </p>
                         </div>
-                        <md-button ng-show="item.status === 'wait'" flex="" ng-click="takeIt(tile)"
+                        <md-button ng-show="item.status === 'wait'" flex="" ng-click="takeIt(item)"
                                    class="center md-raised md-primary">
                             I take it
                         </md-button>

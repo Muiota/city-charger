@@ -34,6 +34,9 @@
                                 hideDelay: 12000,
                                 position: 'top right'
                             });
+                        } else if (a.status < 0)
+                        {
+                            window.reload();
                         }
                         console.error("error response statusCode=" + c + " url=" + url + " response: " + a,
                             true);

@@ -2,8 +2,8 @@
 /*global angular, CC */
 (function () {
     'use strict';
-    CC.app.controller("CourierController", ["$scope", "RestService", "PackagesService",
-        function ($scope, restService, packagesService) {
+    CC.app.controller("CourierController", ["$scope", "RestService", "PackagesService", '$interval',
+        function ($scope, restService, packagesService, $interval) {
 
             $scope.i8n = CC.i8n;
             $scope.packagesService = packagesService;
@@ -99,6 +99,7 @@
                         controls: ["zoomControl"]
                     });
                 }
+
                 ymaps.ready(init);
             }
 
@@ -202,16 +203,15 @@
             globalInit();
             $scope.mapInit = function () {
                 showA();
-            }
+            };
 
-
-            setInterval(function () {
+            $interval(function () {
                 packagesService.reloadWaitingPackages();
-            }, 1000)
+            }, 3000);
 
             $scope.takeIt = function (item) {
-                
-            }
+                packagesService.takePackage({packageId: item.id});
+            };
 
             $scope.getIcon = function (item) {
                 switch (item.type) {
@@ -266,7 +266,7 @@
             $scope.getStatus = function (item) {
                 switch (item.status) {
                     case CC.PackageItemStatus.wait:
-                        return "Searching courier";
+                        return "Waiting for take";
                     case  CC.PackageItemStatus.delivery:
                         return "Delivering";
                     case  CC.PackageItemStatus.recycled:

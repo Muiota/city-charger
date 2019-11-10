@@ -38,12 +38,19 @@
                 })
             }
 
+            function takePackage(request) {
+                restService.post(CC.ApiRoutes.takePackage, request, function (data) {
+                    reloadUserPackages();
+                })
+            }
+
             return {
                 createPackage: createPackage,
                 reloadUserPackages: reloadUserPackages,
                 reloadWaitingPackages: reloadWaitingPackages,
                 getUserPackages: getUserPackages,
-                getWaitingPackages: getWaitingPackages
+                getWaitingPackages: getWaitingPackages,
+                takePackage: takePackage
             };
         }])
     }

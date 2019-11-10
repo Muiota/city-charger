@@ -51,4 +51,27 @@
         };
     };
 
+    exports.takePackage = function (request, res) {
+        let items = data.packages.filter(function (f) {
+            return (f.userid !== request.userid && f.status === dictionary.PackageItemStatus.wait &&
+            f.id === request.packageId);
+        });
+
+        for (let i in items)
+        {
+            if (!items.hasOwnProperty(i)) {
+                continue;
+            }
+            let item = items[i];
+
+            item.status = dictionary.PackageItemStatus.delivery;
+            item.courierId = request.userid;
+        }
+
+        return {
+            isSuccess: true,
+            message: "packageInDelivered"
+        };
+    };
+
 }());
