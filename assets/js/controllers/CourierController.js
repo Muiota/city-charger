@@ -226,18 +226,7 @@
                 }
             };
 
-            $scope.getName = function (item) {
-                switch (item.type) {
-                    case CC.WasteTypeEnum.glass:
-                        return "glass";
-                    case CC.WasteTypeEnum.paper:
-                        return "paper";
-                    case CC.WasteTypeEnum.battery:
-                        return "battery";
-                    default:
-                        return "battery";
-                }
-            };
+            $scope.getName = CC.getWasteName;
 
             $scope.getVolume = function (item) {
                 switch (item.type) {

@@ -46,6 +46,20 @@ var CC = (function () {
                     return 'Kg';
             }
         },
+        getWasteName : function (item) {
+            switch (item.type) {
+                case CC.WasteTypeEnum.glass:
+                    return "glass";
+                case CC.WasteTypeEnum.paper:
+                    return "paper";
+                case CC.WasteTypeEnum.plastic:
+                    return "plastic";
+                case CC.WasteTypeEnum.battery:
+                    return "battery";
+                default:
+                    return "battery";
+            }
+        },
         language: {
             current: "en",
             data: {
