@@ -119,7 +119,7 @@
                         <div class="md-list-item-text" layout="column">
                             <h3>{{i8n(getName(item))}}</h3>
                             <h4>{{getVolume(item)}}</h4>
-                            <p>{{getDescription(item)}} {{item.createDate| date:"h:mm dd.MM.y"}}</p>
+                            <p>{{getDescription(item)}} {{item.createDate| date:"HH:mm dd.MM.y"}}</p>
                         </div>
                         <md-button ng-show="item.status === 'wait'" flex=""
                                    class="center md-raised md-primary">
@@ -178,7 +178,7 @@
                         <div class="md-list-item-text" layout="column">
                             <h3>{{i8n(getName(item))}} from {{item.initiator}}</h3>
                             <h4>{{getVolume(item)}}</h4>
-                            <p>{{getDescription(item)}} {{item.createDate| date:"h:mm dd.MM.y"}} </p>
+                            <p>{{getDescription(item)}} {{item.createDate| date:"HH:mm dd.MM.y"}} </p>
                         </div>
                         <md-button ng-show="item.status === 'wait'" flex="" ng-click="takeIt(item)"
                                    class="center md-raised md-primary">
