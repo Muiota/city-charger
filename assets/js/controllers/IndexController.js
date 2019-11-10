@@ -197,6 +197,47 @@
                     });
             };
 
+
+            $scope.showCreateLampPackageDialog = function (ev) {
+                $mdDialog.show({
+                    controller: DialogController,
+                    templateUrl: "/templates/createPackage.template.html",
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    locals: {
+                        initType: CC.WasteTypeEnum.glass,
+                        initSubtypes: [{
+                            title: "5V lamp",
+                            type: CC.PackageItemTypes.BAA,
+                            ratio: 5,
+                            icon: "svg-light",
+                            count: 0
+                        },
+                            {
+                                title: "12V lamp",
+                                ratio: 12,
+                                type: CC.PackageItemTypes.B6F22,
+                                icon: "svg-light",
+                                count: 0
+                            },
+                            {
+                                title: "220V lamp",
+                                ratio: 220,
+                                type: CC.PackageItemTypes.B6F22,
+                                icon: "svg-light",
+                                count: 0
+                            }]
+                    },
+                    clickOutsideToClose: true,
+                    fullscreen: false // Only for -xs, -sm breakpoints.
+                })
+                    .then(function (request) {
+                        packagesService.createPackage(request);
+                    }, function () {
+                        $scope.status = 'You cancelled the dialog.';
+                    });
+            };
+
             packagesService.reloadUserPackages();
 
         }])
