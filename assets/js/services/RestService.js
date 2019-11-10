@@ -34,20 +34,17 @@
                                 hideDelay: 12000,
                                 position: 'top right'
                             });
-                            /*  $mdToast.simple()
-                                  .textContent(CC.i8n(a.error))
-                                  .position("top right")
-                                  .hideDelay(10000))
-                              .then(function () {
-
-                              }).catch(function () {
-
-                          })*/
-                            ;
                         }
                         console.error("error response statusCode=" + c + " url=" + url + " response: " + a,
                             true);
                     } else {
+                        if (a.message) {
+                            $mdToast.show({
+                                template: '<md-toast class="md-toast ' + '">' + CC.i8n(a.message) + '</md-toast>',
+                                hideDelay: 12000,
+                                position: 'top right'
+                            });
+                        }
                         console.info("success url=" + url + " response:", a);
                     }
                     if (!angular.isUndefined(callback) && angular.isFunction(callback)) {

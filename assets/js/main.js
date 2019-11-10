@@ -13,6 +13,11 @@ var CC = (function () {
             getAllPackages: "/api/v1/getAllPackages",
             assignPackage: "/api/v1/assignPackage",
         },
+        PackageItemTypes: {
+            "BAA":"AA",
+            "B6F22":"6F22",
+            "B23AA":"23AA",
+        },
         tabs: {
             citizen: "citizen",
             courier: "courier",
@@ -60,6 +65,10 @@ var CC = (function () {
                 "logout": {
                     en: "Logout",
                     ru: "Выйти",
+                },
+                "packageCreatedSuccess": {
+                    en: "Package created successfully",
+                    ru: "Пачка создана успешно",
                 }
             }
         },

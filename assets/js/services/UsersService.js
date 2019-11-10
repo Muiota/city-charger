@@ -4,8 +4,8 @@
         'use strict';
         CC.app.service('UsersService', ['$cookies', function ($cookies) {
 
-            var userData = $cookies.get("CITY_CHARGER_AUTH");
-            var userInfo = {};
+            const userData = $cookies.get("CITY_CHARGER_AUTH");
+            let userInfo = {};
             if (userData) {
                 userInfo = JSON.parse(atob(userData));
             }

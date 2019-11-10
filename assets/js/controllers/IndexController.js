@@ -2,9 +2,9 @@
 /*global angular, CC */
 (function () {
     'use strict';
-    CC.app.controller("IndexController", ["$scope", 'UsersService', "$mdSidenav", "RestService", "$cookies",
-        "$mdDialog",
-        function ($scope, usersService, $mdSidenav, restService, $cookies, $mdDialog) {
+    CC.app.controller("IndexController", ["$scope", 'UsersService', "$mdSidenav", "RestService",
+        "$cookies", "$mdDialog", "PackagesService",
+        function ($scope, usersService, $mdSidenav, restService, $cookies, $mdDialog, packagesService) {
             $scope.usersService = usersService;
             $scope.i8n = CC.i8n;
             $scope.currentTab = CC.tabs.citizen;
@@ -28,9 +28,27 @@
             function DialogController($scope, $mdDialog) {
                 $scope.i8n = CC.i8n;
 
-                $scope.items = [{title: "AA battery 1.5V", ratio: 1.5, icon: "svg-battery", count: 0},
-                    {title: "6F22 battery 9V", ratio: 9, icon: "svg-battery", count: 0},
-                    {title: "23AA battery 12V", ratio: 12, icon: "svg-battery", count: 0}];
+                $scope.items = [{
+                    title: "AA battery 1.5V",
+                    type: CC.PackageItemTypes.BAA,
+                    ratio: 1.5,
+                    icon: "svg-battery",
+                    count: 0
+                },
+                    {
+                        title: "6F22 battery 9V",
+                        ratio: 9,
+                        type: CC.PackageItemTypes.B6F22,
+                        icon: "svg-battery",
+                        count: 0
+                    },
+                    {
+                        title: "23AA battery 12V",
+                        ratio: 12,
+                        type: CC.PackageItemTypes.B6F22,
+                        icon: "svg-battery",
+                        count: 0
+                    }];
 
 
                 $scope.hide = function () {
@@ -54,8 +72,22 @@
                     $mdDialog.cancel();
                 };
 
-                $scope.answer = function (answer) {
-                    $mdDialog.hide(answer);
+                $scope.requestPackage = function (answer) {
+                    let request = {items: []};
+                    for (let i in $scope.items) {
+                        if (!$scope.items.hasOwnProperty(i)) {
+                            continue;
+                        }
+                        let item = $scope.items[i];
+                        if (item.count) {
+                            request.items.push({
+                                type: item.type,
+                                count: item.count,
+                                ratio: item.ratio,
+                            });
+                        }
+                    }
+                    $mdDialog.hide(request);
                 };
 
                 $scope.decrementQnt = function (item) {
@@ -83,12 +115,16 @@
                     clickOutsideToClose: true,
                     fullscreen: false // Only for -xs, -sm breakpoints.
                 })
-                    .then(function (answer) {
-                        $scope.status = 'You said the information was "' + answer + '".';
+                    .then(function (request) {
+                        restService.post(CC.ApiRoutes.createPackage, request, function (data) {
+                            packagesService.reloadUserPackages();
+                        })
                     }, function () {
                         $scope.status = 'You cancelled the dialog.';
                     });
             };
+
+            packagesService.reloadUserPackages();
 
         }])
 })();

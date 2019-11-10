@@ -14,7 +14,7 @@ http://demo-balticsea.apps.us-east-1.starter.openshift-online.com/
 - [ ] Main page with current status
 - [ ] Status rest api
 - [x] Send package page [10.11.2019 1:30]
-- [ ] Send package rest api
+- [x] Send package rest api [10.11.2019 3:00]
 - [ ] Package card
 - [ ] Courier page
 - [ ] Simple list of packages for courier
