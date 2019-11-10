@@ -82,7 +82,7 @@
                         </md-card-title>
                         <md-card-actions layout="row" layout-align="column center">
                             <div flex="">
-                                <md-button ng-click="showCreatePackageDialog($event)"
+                                <md-button ng-click="showCreateBatteryPackageDialog($event)"
                                            class="center">
                                     <md-icon md-svg-src="svg-battery" class="avatar avatar-big"></md-icon>
                                     <br/>
@@ -90,7 +90,7 @@
                                 </md-button>
                             </div>
                             <div flex="">
-                                <md-button ng-click="showCreatePackageDialog($event)"
+                                <md-button ng-click="showCreatePlasticPackageDialog($event)"
                                            class="center">
                                     <md-icon md-svg-src="svg-plastic" class="avatar avatar-big"></md-icon>
                                     <br/>
@@ -98,7 +98,7 @@
                                 </md-button>
                             </div>
                             <div flex="">
-                                <md-button ng-click="showCreatePackageDialog($event)"
+                                <md-button ng-click="showCreatePlasticPackageDialog($event)"
                                            class="center">
                                     <md-icon md-svg-src="svg-light" class="avatar avatar-big"></md-icon>
                                     <br/>
@@ -127,7 +127,7 @@
                         </md-button>
                         <div class="lds-svg" ng-show="item.status === 'wait'">
                             <svg class="lds-recycle" width="90px" height="90px" xmlns="http://www.w3.org/2000/svg"
-                                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"
+                                 viewBox="0 0 100 100"
                                  preserveAspectRatio="xMidYMid" style="background: none;">
                                 <g transform="translate(50,50)">
                                     <g transform="scale(0.4444444444444444)">

@@ -55,31 +55,11 @@
                 return 0;
             }
 
-            function DialogController($scope, $mdDialog) {
+            function DialogController($scope, $mdDialog, initType, initSubtypes) {
                 $scope.i8n = CC.i8n;
-
-                $scope.items = [{
-                    title: "AA battery 1.5V",
-                    type: CC.PackageItemTypes.BAA,
-                    ratio: 1.5,
-                    icon: "svg-battery",
-                    count: 0
-                },
-                    {
-                        title: "6F22 battery 9V",
-                        ratio: 9,
-                        type: CC.PackageItemTypes.B6F22,
-                        icon: "svg-battery",
-                        count: 0
-                    },
-                    {
-                        title: "23AA battery 12V",
-                        ratio: 12,
-                        type: CC.PackageItemTypes.B6F22,
-                        icon: "svg-battery",
-                        count: 0
-                    }];
-
+                $scope.initType = initType;
+                $scope.initSubtypes = initSubtypes;
+                $scope.items = initSubtypes;
 
                 $scope.hide = function () {
                     $mdDialog.hide();
@@ -103,7 +83,7 @@
                 };
 
                 $scope.requestPackage = function (answer) {
-                    let request = {items: [], type: CC.WasteTypeEnum.battery, total: $scope.total};
+                    let request = {items: [], type:  $scope.initType, total: $scope.total};
                     for (let i in $scope.items) {
                         if (!$scope.items.hasOwnProperty(i)) {
                             continue;
@@ -134,14 +114,79 @@
                     }
                 };
                 $scope.recalcTotal();
+                $scope.getMeasure = CC.getMeasure;
             }
 
-            $scope.showCreatePackageDialog = function (ev) {
+            $scope.showCreateBatteryPackageDialog = function (ev) {
                 $mdDialog.show({
                     controller: DialogController,
                     templateUrl: "/templates/createPackage.template.html",
                     parent: angular.element(document.body),
                     targetEvent: ev,
+                    locals: {
+                        initType: CC.WasteTypeEnum.battery,
+                        initSubtypes: [{
+                                title: "AA battery 1.5V",
+                                type: CC.PackageItemTypes.BAA,
+                                ratio: 1.5,
+                                icon: "svg-battery",
+                                count: 0
+                            },
+                            {
+                                title: "6F22 battery 9V",
+                                ratio: 9,
+                                type: CC.PackageItemTypes.B6F22,
+                                icon: "svg-battery",
+                                count: 0
+                            },
+                            {
+                                title: "23AA battery 12V",
+                                ratio: 12,
+                                type: CC.PackageItemTypes.B6F22,
+                                icon: "svg-battery",
+                                count: 0
+                            }]
+                    },
+                    clickOutsideToClose: true,
+                    fullscreen: false // Only for -xs, -sm breakpoints.
+                })
+                    .then(function (request) {
+                        packagesService.createPackage(request);
+                    }, function () {
+                        $scope.status = 'You cancelled the dialog.';
+                    });
+            };
+
+            $scope.showCreatePlasticPackageDialog = function (ev) {
+                $mdDialog.show({
+                    controller: DialogController,
+                    templateUrl: "/templates/createPackage.template.html",
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    locals: {
+                        initType: CC.WasteTypeEnum.plastic,
+                        initSubtypes: [{
+                            title: "Plastic bottle 1L",
+                            type: CC.PackageItemTypes.BAA,
+                            ratio: 1,
+                            icon: "svg-shampoo",
+                            count: 0
+                        },
+                            {
+                                title: "Water bottle 1.5L",
+                                ratio: 1.5,
+                                type: CC.PackageItemTypes.B6F22,
+                                icon: "svg-plastic-standart",
+                                count: 0
+                            },
+                            {
+                                title: "Plastic bottle 5L",
+                                ratio: 5,
+                                type: CC.PackageItemTypes.B6F22,
+                                icon: "svg-plastic",
+                                count: 0
+                            }]
+                    },
                     clickOutsideToClose: true,
                     fullscreen: false // Only for -xs, -sm breakpoints.
                 })

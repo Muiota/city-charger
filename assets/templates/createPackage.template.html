@@ -1,8 +1,8 @@
-<md-dialog aria-label="{{i8n('create_package')}} (i8n('battery'))">
+<md-dialog aria-label="{{i8n('create_package')}} (i8n(initType))">
     <form ng-cloak>
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2><span class="gray">{{i8n('create_package')}}</span> ({{i8n('battery')}})</h2>
+                <h2><span class="gray">{{i8n('create_package')}}</span> ({{i8n(initType)}})</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()">
                     <md-icon md-icon="close" aria-label="Close dialog"></md-icon>
@@ -12,9 +12,8 @@
 
         <md-dialog-content>
             <div class="md-dialog-content">
-                <h2>Please select the items ({{total}} Volts)</h2>
+                <h2>Please select the items ({{total}} {{getMeasure(initType)}})</h2>
                 <div flex ng-cloak>
-
                     <md-card-actions layout="row" layout-align="row">
                         <div flex="" ng-repeat="tile in items">
                             <md-card md-theme-watch>
@@ -23,7 +22,7 @@
                                      class="center">
                                     <div layout="row" layout-align="row">
                                         <div flex="">
-                                            <md-icon md-svg-src="svg-battery" class="avatar"></md-icon>
+                                            <md-icon md-svg-src="{{tile.icon}}" class="avatar"></md-icon>
                                         </div>
                                         <div flex=""><h1>{{tile.count}}</h1></div>
                                     </div>

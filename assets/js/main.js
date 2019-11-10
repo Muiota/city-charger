@@ -34,6 +34,18 @@ var CC = (function () {
             courier: "courier",
             recycler: "recycler",
         },
+        getMeasure: function (initType) {
+            switch (initType) {
+                case CC.WasteTypeEnum.plastic:
+                    return 'Litres';
+                case CC.WasteTypeEnum.battery:
+                    return 'Volts';
+                case CC.WasteTypeEnum.glass:
+                    return 'Volts';
+                case CC.WasteTypeEnum.paper:
+                    return 'Kg';
+            }
+        },
         language: {
             current: "en",
             data: {
@@ -58,6 +70,10 @@ var CC = (function () {
                     ru: "Пластик",
                 },
                 "light": {
+                    en: "Lamps",
+                    ru: "Лампы",
+                },
+                "glass": {
                     en: "Lamps",
                     ru: "Лампы",
                 },

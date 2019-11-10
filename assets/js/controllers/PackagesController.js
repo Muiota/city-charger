@@ -31,6 +31,8 @@
                         return "glass";
                     case CC.WasteTypeEnum.paper:
                         return "paper";
+                    case CC.WasteTypeEnum.plastic:
+                        return "plastic";
                     case CC.WasteTypeEnum.battery:
                         return "battery";
                     default:
