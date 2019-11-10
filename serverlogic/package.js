@@ -6,6 +6,8 @@
     'use strict';
 
     const data = require("./data.js");
+    const dict = require("./dictionary.js");
+    const dictionary = dict.dictionary;
 
     exports.createPackage = function (request, res) {
         let total = 0;
@@ -29,6 +31,20 @@
     exports.listOfPackages = function (request, res) {
         let items = data.packages.filter(function (f) {
             return f.userid === request.userid;
+        }).sort(function (a, b) {
+            return b.createDate - a.createDate
+        });
+        return {
+            items: items
+        };
+    };
+
+    exports.listOfPackagesWaiting = function (request, res) {
+        let items = data.packages.filter(function (f) {
+            return (f.userid !== request.userid && f.status === dictionary.PackageItemStatus.wait) ||
+                (f.courierId === request.userid);
+        }).sort(function (a, b) {
+            return b.createDate - a.createDate
         });
         return {
             items: items

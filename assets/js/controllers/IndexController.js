@@ -11,6 +11,17 @@
             $scope.tabs = CC.tabs;
             $scope.changeTab = function (tab) {
                 $scope.currentTab = tab;
+                switch (tab) {
+                    case CC.tabs.citizen:
+                        packagesService.reloadUserPackages();
+                        break;
+                    case CC.tabs.courier:
+                        packagesService.reloadWaitingPackages();
+                        break;
+                    case CC.tabs.recycler:
+                        break;
+                }
+
             };
 
             $scope.toggleList = function () {
@@ -26,8 +37,22 @@
             };
 
 
-            $scope.getBadgeCount = function () {
-                return "1";
+            $scope.getBadgeCount = function (tab) {
+                switch (tab) {
+                    case CC.tabs.citizen:
+                        const items = packagesService.getUserPackages().filter(function (f) {
+                            return f.status === CC.PackageItemStatus.wait;
+                        });
+                        return items.length;
+                    case CC.tabs.courier:
+                        const itemsWait = packagesService.getWaitingPackages().filter(function (f) {
+                            return f.status === CC.PackageItemStatus.wait;
+                        });
+                        return itemsWait.length;
+                    case CC.tabs.recycler:
+                        return 0;
+                }
+                return 0;
             }
 
             function DialogController($scope, $mdDialog) {

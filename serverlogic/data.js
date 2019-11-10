@@ -33,8 +33,18 @@
             total: total,
             items: items,
             createDate: Date.now(),
+            courierId: 0,
             status: dictionary.PackageItemStatus.wait
         };
+
+        var userItems = exports.users.filter(function (u) {
+            u.id = userid;
+        });
+        if (userItems.length) {
+            let initiator = userItems[0].username;
+            console.log("Assign initiator");
+            pack.initiator = initiator;
+        }
         exports.packages.push(pack);
         console.log("Package " + JSON.stringify(pack) + " created");
     };

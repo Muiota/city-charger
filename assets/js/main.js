@@ -10,7 +10,7 @@ var CC = (function () {
             logout: "/api/v1/logout",
             createPackage: "/api/v1/createPackage",
             listOfPackages: "/api/v1/listOfPackages",
-            getAllPackages: "/api/v1/getAllPackages",
+            getWaitingPackages: "/api/v1/getWaitingPackages",
             assignPackage: "/api/v1/assignPackage",
         },
         PackageItemTypes: {
@@ -85,6 +85,10 @@ var CC = (function () {
                     en: "Invalid credentials",
                     ru: "Неправильная пара логин/пароль",
                 },
+                "packageCreated" : {
+                    en: "Package created",
+                    ru: "Пачка сделана",
+                }
             }
         },
         i8n: function (msg) {

@@ -45,7 +45,9 @@
                 case dictionary.ApiRoutes.listOfPackages:
                     responseBody = packageLogic.listOfPackages(requestBody, res);
                     break;
-
+                case dictionary.ApiRoutes.getWaitingPackages:
+                    responseBody = packageLogic.listOfPackagesWaiting(requestBody, res);
+                    break;
             }
             sendResponse(res, requestBody, responseBody);
         }
