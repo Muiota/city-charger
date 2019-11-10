@@ -224,7 +224,7 @@
                     default:
                         return "svg-battery";
                 }
-            }
+            };
 
             $scope.getName = function (item) {
                 switch (item.type) {
@@ -238,6 +238,7 @@
                         return "battery";
                 }
             };
+
             $scope.getVolume = function (item) {
                 switch (item.type) {
                     case CC.WasteTypeEnum.glass:
