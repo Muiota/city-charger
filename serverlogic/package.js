@@ -8,8 +8,8 @@
     const data = require("./data.js");
 
     exports.createPackage = function (request, res) {
-        var total = 0;
-        for (var i in request.items) {
+        let total = 0;
+        for (let i in request.items) {
             if (!request.items.hasOwnProperty(i)) {
                 continue;
             }
@@ -19,7 +19,7 @@
             }
         }
 
-        data.createPackage(request.userid, request.items, request.type, request.total);
+        data.createPackage(request.userid, request.items, request.type, total);
         return {
             isSuccess: true,
             message: "packageCreatedSuccess"

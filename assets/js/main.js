@@ -18,6 +18,11 @@ var CC = (function () {
             "B6F22": "6F22",
             "B23AA": "23AA",
         },
+        PackageItemStatus: {
+            wait: "wait",
+            delivery: "delivery",
+            recycled: "recycled",
+        },
         WasteTypeEnum: {
             battery: "battery",
             paper: "paper",
@@ -75,7 +80,11 @@ var CC = (function () {
                 "packageCreatedSuccess": {
                     en: "Package created successfully",
                     ru: "Пачка создана успешно",
-                }
+                },
+                "invalidCredentials": {
+                    en: "Invalid credentials",
+                    ru: "Неправильная пара логин/пароль",
+                },
             }
         },
         i8n: function (msg) {

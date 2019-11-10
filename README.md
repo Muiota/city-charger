@@ -18,7 +18,7 @@ http://demo-balticsea.apps.us-east-1.starter.openshift-online.com/
 - [ ] Package card
 - [ ] Courier page
 - [ ] Simple list of packages for courier
-- [ ] Map route for courier
+- [x] Map route for courier  [10.11.2019 10:00]
 - [ ] Get package rest api
 - [ ] Balances
 - [ ] Users

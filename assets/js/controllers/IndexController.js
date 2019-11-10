@@ -25,6 +25,11 @@
                 })
             };
 
+
+            $scope.getBadgeCount = function () {
+                return "1";
+            }
+
             function DialogController($scope, $mdDialog) {
                 $scope.i8n = CC.i8n;
 

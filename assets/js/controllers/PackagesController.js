@@ -62,6 +62,17 @@
                 return total + (total <= 1 ? " item" : " items");
             };
 
+            $scope.getStatus = function (item) {
+                switch (item.status) {
+                    case CC.PackageItemStatus.wait:
+                        return "Searching courier";
+                    case  CC.PackageItemStatus.delivery:
+                        return "Delivering";
+                    case  CC.PackageItemStatus.recycled:
+                        return "Complete";
+                }
+            };
+
 
         }])
 })();

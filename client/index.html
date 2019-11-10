@@ -50,6 +50,7 @@
                                ng-class="{'md-raised md-primary':tabs.citizen=== currentTab }">
                         <md-icon md-svg-src="svg-2" class="avatar"></md-icon>
                         {{i8n(tabs.citizen) }}
+                        <span class="badge-in-menu">{{getBadgeCount(tabs.citizen)}}</span>
                     </md-button>
                 </md-list-item>
                 <md-list-item>
@@ -57,6 +58,7 @@
                                ng-class="{'md-raised md-primary':tabs.courier=== currentTab }">
                         <md-icon md-svg-src="svg-1" class="avatar"></md-icon>
                         {{i8n(tabs.courier) }}
+                        <span class="badge-in-menu">{{getBadgeCount(tabs.courier)}}</span>
                     </md-button>
                 </md-list-item>
                 <md-list-item>
@@ -64,6 +66,7 @@
                                ng-class="{'md-raised md-primary':tabs.recycler=== currentTab }">
                         <md-icon md-svg-src="svg-3" class="avatar"></md-icon>
                         {{i8n(tabs.recycler) }}
+                        <span class="badge-in-menu">{{getBadgeCount(tabs.recycler)}}</span>
                     </md-button>
                 </md-list-item>
             </md-list>
@@ -110,16 +113,55 @@
             <div layout="row" layout-xs="column" ng-controller="PackagesController">
                 <md-list flex class="big-list">
                     <md-subheader class="md-no-sticky">My packages</md-subheader>
-                    <md-list-item class="md-3-line" ng-repeat="item in packagesService.getUserPackages()" ng-click="null">
+                    <md-list-item class="md-3-line" ng-repeat="item in packagesService.getUserPackages()"
+                                  ng-click="null">
                         <md-icon md-svg-src="{{getIcon(item)}}" class="avatar list-item-icon"></md-icon>
                         <div class="md-list-item-text" layout="column">
                             <h3>{{i8n(getName(item))}}</h3>
                             <h4>{{getVolume(item)}}</h4>
                             <p>{{getDescription(item)}}</p>
                         </div>
+                        <md-button ng-show="item.status === 'wait'" flex="" ng-click="incrementQnt(tile)"
+                                   class="center md-raised md-primary">
+                            Edit
+                        </md-button>
+                        <div class="lds-svg" ng-show="item.status === 'wait'">
+                            <svg class="lds-recycle" width="90px" height="90px" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"
+                                 preserveAspectRatio="xMidYMid" style="background: none;">
+                                <g transform="translate(50,50)">
+                                    <g transform="scale(0.4444444444444444)">
+                                        <g transform="translate(-50,-50)">
+                                            <g transform="rotate(3.7808 50 50)">
+                                                <animateTransform attributeName="transform" type="rotate"
+                                                                  repeatCount="indefinite"
+                                                                  values="0 50 50;360 50 50" keyTimes="0;1" dur="1s"
+                                                                  keySplines="0.7 0 0.3 1"
+                                                                  calcMode="spline"></animateTransform>
+                                                <path fill="#1d3f72"
+                                                      d="M12.2,25.7C19.4,14.4,31.5,6.6,45.6,5.2l3.8,7.7l-4.2,8.3c-8.1,1.3-15,6-19.4,12.5l-4.9-7.5L12.2,25.7z"></path>
+                                                <path fill="#5699d2"
+                                                      d="M56,12.9l-4,8c8.2,0.6,15.5,4.6,20.5,10.6l9.3-0.6l4.7-7.2C78.8,13,66.3,5.7,52.1,5.1L56,12.9z"></path>
+                                                <path fill="#d8ebf9"
+                                                      d="M85.1,36.7l-8.9,0.5c3.5,7.2,3.9,15.6,1.1,23.1l5.1,7.7l8.6,0.5c5.6-12.4,5.3-27.1-1-39.2L85.1,36.7z"></path>
+                                                <path fill="#1d3f72"
+                                                      d="M79.1,73.8l-4.9-7.5c-4.4,6.5-11.4,11.1-19.4,12.5l-4.2,8.3l3.8,7.7c14-1.4,26.1-9.2,33.4-20.5L79.1,73.8z"></path>
+                                                <path fill="#5699d2"
+                                                      d="M14.9,63.3l8.9-0.5c-3.5-7.2-3.9-15.6-1.1-23.1L17.6,32L9,31.5c-5.6,12.4-5.3,27.1,1,39.2L14.9,63.3z"></path>
+                                                <path fill="#d8ebf9"
+                                                      d="M44,87.1l4-8c-8.2-0.6-15.5-4.6-20.5-10.6l-9.3,0.6l-4.7,7.2C21.2,87,33.7,94.3,47.9,94.9L44,87.1z"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                        <md-chips>
+                            <md-chip class="status">{{getStatus(item)}}</md-chip>
+                        </md-chips>
                     </md-list-item>
                     <md-list-item class="md-3-line" ng-repeat="item in todos" ng-click="null">
-                        <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+                        <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}"/>
                         <div class="md-list-item-text" layout="column">
                             <h3>{{ item.who }}</h3>
                             <h4>{{ item.what }}</h4>
@@ -127,6 +169,15 @@
                         </div>
                     </md-list-item>
                 </md-list>
+            </div>
+        </md-content>
+        <md-content flex id="content" ng-show="tabs.courier === currentTab" ng-controller="CourierController">
+            <md-button flex="" ng-click="mapInit()"
+                       class="center md-raised md-primary">
+                Init map
+            </md-button>
+            <div id="map">
+
             </div>
         </md-content>
     </div>
@@ -148,5 +199,7 @@
 <script src="/js/controllers/IndexController.js"></script>
 <script src="/js/controllers/UsersController.js"></script>
 <script src="/js/controllers/PackagesController.js"></script>
-
+<script src="/js/controllers/CourierController.js"></script>
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=f7cd4f71-11aa-4a4d-90ff-5a7253f91392"
+        type="text/javascript"></script>
 </html>

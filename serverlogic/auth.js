@@ -46,6 +46,11 @@
     exports.login = function (request, res) {
         let username = request.username;
         let password = request.password;
+
+        if (!username || !password || username.length < 4 || password.length < 4) {
+            return {error: "invalidCredentials"};
+        }
+
         console.log(JSON.stringify(data.users) + " username=" + username + " password=" + password);
         for (let i in data.users) {
             if (!data.users.hasOwnProperty(i)) {
@@ -76,6 +81,10 @@
     exports.signUp = function (request, res) {
         var username = request.username;
         var password = request.password;
+
+        if (!username || !password || username.length < 4 || password.length < 4) {
+            return {error: "invalidCredentials"};
+        }
         console.log(JSON.stringify(data.users) + " username=" + username + " password=" + password);
         for (var i in data.users) {
             if (!data.users.hasOwnProperty(i)) {
